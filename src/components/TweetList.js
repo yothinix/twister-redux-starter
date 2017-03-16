@@ -21,6 +21,7 @@ class TweetList extends React.Component {
 
 TweetList.propTypes = {
   tweets: PropTypes.arrayOf(PropTypes.object),
+  fetchTweetsSuccess: PropTypes.func.isRequired,
 }
 
 TweetList.defaultProps = {
