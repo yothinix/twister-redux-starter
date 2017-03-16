@@ -9,7 +9,10 @@ import './styles/main.scss'
 import rootReducer from './reducers'
 import App from './components/App'
 
-const store = createStore(rootReducer)
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 
 const render = (Component) => {
   ReactDOM.render(
@@ -26,5 +29,8 @@ render(App)
 if (module.hot) {
   module.hot.accept('./components/App', () => {
     render(App)
+  })
+  module.hot.accept('./reducers', () => {
+    store.replaceReducer(rootReducer)
   })
 }
