@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import { login } from '../actions/auth'
 
 const LoginForm = ({ handleSubmit, login }) => {
   const submitLogin = (values) => {
@@ -35,8 +36,6 @@ LoginForm.propTypes = {
 const LoginReduxForm = reduxForm({
   form: 'login',
 })(LoginForm)
-const mapDispatchToProps = (dispatch) => ({
-  login: (username, password) => dispatch(login(username, password)),
-})
 
-export default connect(null, mapDispatchToProps)(LoginReduxForm)
+export default connect(null, { login })(LoginReduxForm)
+// { login } short hand of connect same argument is thunk
