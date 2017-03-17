@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { AppContainer } from 'react-hot-loader'
 import { createBrowserHistory } from 'history'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
+import throttle from 'lodash.throttle'
 
 import './styles/custom.scss'
 import './styles/main.scss'
@@ -24,11 +25,11 @@ const store = createStore(
   ),
 )
 
-store.subscribe(() => {
+store.subscribe(throttle(() => {
   saveState({
     auth: store.getState().auth,
   })
-})
+}, 1000))
 
 const render = (Component) => {
   ReactDOM.render(
