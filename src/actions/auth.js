@@ -14,12 +14,11 @@ const loginSuccess = ({ username, name, token }) => ({
 
 const login = (username, password) => (dispatch) => {
   const uri = `http://${host}:${port}/api/TwisterUsers/login`
-
   fetch(uri, {
     method: 'POST',
     headers: {
       accept: 'application/json',
-      'Conntent-Type': 'application/json',
+      'Content-type': 'application/json',
     },
     mode: 'cors',
     body: JSON.stringify({
