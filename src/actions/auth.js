@@ -3,7 +3,7 @@ import config from '../config'
 
 const { host, port } = config.api
 
-const loginSuccess = (username, name, token) => ({
+const loginSuccess = ({ username, name, token }) => ({
   type: AUTH_LOGIN_SUCCESS,
   payload: {
     username,
@@ -33,7 +33,7 @@ const login = (username, password) => (dispatch) => {
     }
     return response.json()
   })
-  .then(authInfo => dispatch(loginSuccess(authInfo.username, authInfo.name, authInfo.token)))
+  .then(authInfo => dispatch(loginSuccess(authInfo)))
   .catch(err => console.error(err))
 }
 
