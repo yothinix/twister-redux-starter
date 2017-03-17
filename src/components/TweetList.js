@@ -7,6 +7,13 @@ class TweetList extends React.Component {
     this.props.fetchTweets(ownerUsername)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.ownerUsername !== nextProps.ownerUsername) {
+      const ownerUsername = nextProps.ownerUsername || 'kaizerwing'
+      this.props.fetchTweets(ownerUsername)
+    }
+  }
+
   render() {
     return (
       <div className="tweet-list">
