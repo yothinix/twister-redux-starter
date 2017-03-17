@@ -1,14 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 
-const LoginForm = (props) => {
+const LoginForm = ({ handleSubmit, login }) => {
   const submitLogin = (values) => {
-    props.login(values.username, values.password)
+    login(values.username, values.password)
   }
 
   return (
     <div className="login-form">
-      <form onSubmit={props.handleSubmit(submitLogin)}>
+      <form onSubmit={handleSubmit(submitLogin)}>
         <div className="login-label">
           Log in with your username
       </div>
@@ -31,6 +32,11 @@ LoginForm.propTypes = {
   login: React.PropTypes.func.isRequired,
 }
 
-export default reduxForm({
+const LoginReduxForm = reduxForm({
   form: 'login',
 })(LoginForm)
+const mapDispatchToProps = (dispatch) => ({
+  login: (username, password) => dispatch(login(username, password)),
+})
+
+export default connect(null, mapDispatchToProps)(LoginReduxForm)
