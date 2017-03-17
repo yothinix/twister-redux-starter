@@ -1,17 +1,17 @@
 import { connect } from 'react-redux'
-import { matchPath } from 'react-router'
+import { matchPath } from 'react-router-dom'
 import Tweetlist from '../components/TweetList'
 import { fetchTweets } from '../actions/tweets'
 
 const mapStateToProps = (state) => {
-  const { params } = matchPath(
-    state.router.location.pathnae,
+  const match = matchPath(
+    state.router.location.pathname,
     { path: '/:ownerUsername' },
   )
 
   return {
     tweets: state.tweets,
-    ownerUsername: params.ownerUsername,
+    ownerUsername: match ? match.params.ownerUsername : 'kaizerwing',
   }
 }
 

@@ -15,8 +15,5 @@ const App = ({ history }) => (
   </ConnectedRouter>
 )
 
-App.propTypes = {
-  history: PropTypes.object.isRequired,
-}
 
 export default App
