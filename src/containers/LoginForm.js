@@ -1,12 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import { push as redirect } from 'connected-react-router'
 import { login } from '../actions/auth'
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props)
     this.submitLogin = this.submitLogin.bind(this)
+  }
+
+  componentWillMount() {
+    if (this.props.token) {
+      this.props.redirect('/')
+    }
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.token) {
+      this.props.redirect('/')
+    }
   }
 
   submitLogin(values) {
@@ -38,11 +51,20 @@ class LoginForm extends React.Component {
 LoginForm.propTypes = {
   handleSubmit: React.PropTypes.func.isRequired,
   login: React.PropTypes.func.isRequired,
+  redirect: React.PropTypes.func.isRequired,
+  token: React.PropTypes.string,
+}
+
+LoginForm.defaultProps = {
+  token: '',
 }
 
 const LoginReduxForm = reduxForm({
   form: 'login',
 })(LoginForm)
 
-export default connect(null, { login })(LoginReduxForm)
-// { login } short hand of connect same argument is thunk
+const mapStateToProps = state => ({
+  token: state.auth.token,
+})
+
+export default connect(mapStateToProps, { login, redirect })(LoginReduxForm)
